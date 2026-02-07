@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For My Love Eesha 💖</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg, #ffd6e0, #ffe8cc, #e0c3fc);
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+    text-align:center;
+    color:#5a2a5a;
+}
+
+/* Floating hearts */
+.heart-bg{
+    position:fixed;
+    bottom:-20px;
+    animation: floatUp linear infinite;
+    opacity:0.7;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(0);opacity:1;}
+    100%{transform:translateY(-110vh);opacity:0;}
+}
+
+/* Main container */
+.container{
+    width:90%;
+    max-width:650px;
+    padding:40px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.6);
+    backdrop-filter:blur(10px);
+    box-shadow:0 10px 40px rgba(0,0,0,0.15);
+    animation:fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+    font-size:38px;
+    margin-bottom:25px;
+    color:#b33980;
+}
+
+/* Question Box */
+.question-box{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+    transition:0.5s;
+}
+
+.question-box h2{
+    font-size:20px;
+    margin-bottom:15px;
+}
+
+/* Options Box */
+.options-box{
+    background:#fff0f5;
+    padding:15px;
+    border-radius:15px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Buttons */
+button{
+    display:block;
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:none;
+    border-radius:15px;
+    font-size:15px;
+    cursor:pointer;
+    background:linear-gradient(45deg,#ff9a9e,#fad0c4);
+    color:#5a2a5a;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    background:linear-gradient(45deg,#fbc2eb,#a6c1ee);
+}
+
+#nextBtn{
+    display:none;
+    margin-top:10px;
+}
+
+#proposalSection,
+#finalMessage{
+    display:none;
+}
+
+#proposalSection h2{
+    font-size:24px;
+}
+
+#finalMessage{
+    font-size:20px;
+    margin-top:20px;
+    line-height:1.6;
+    color:#7a1f5c;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>For My Love Eesha 💖</h1>
+
+<div id="questionSection" class="question-box">
+    <h2 id="questionText"></h2>
+    <div id="options" class="options-box"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Continue 💕</button>
+</div>
+
+<div id="proposalSection" class="question-box">
+    <h2>Eesha… will you be my Valentine? 💘</h2>
+    <button onclick="finalYes()">Yes, Always 💞</button>
+</div>
+
+<div id="finalMessage" class="question-box">
+    You are my soft place to fall. 🌸  
+    My calm in every storm. 🌷  
+    My sweetest forever. 💕  
+
+    No matter the miles…  
+    my heart belongs to you. 💖
+</div>
+
+</div>
+
+<script>
+
+const questions = [
+{
+question:"When you think about our love, what does it feel like? 💖",
+options:[
+"Warm and comforting like a hug 🤗",
+"Soft and magical like a dream ✨",
+"Deep and forever kind of love 💞"
+]
+},
+{
+question:"If I whispered 'I miss you' right now… what would you say? 💕",
+options:[
+"Come here, let me hold you 💓",
+"I feel you with me always 💖",
+"I miss you more than words 💌"
+]
+},
+{
+question:"What makes our connection so special? 🌷",
+options:[
+"The way we understand each other 💭",
+"The peace we bring into each other's life 🌸",
+"The way our hearts feel at home 💕"
+]
+},
+{
+question:"When we finally meet, what will your eyes say? 💘",
+options:[
+"I've been waiting for this moment 💞",
+"You are my favorite person 💖",
+"I never want to let you go 💕"
+]
+},
+{
+question:"If forever had a feeling… what would it be? ✨",
+options:[
+"You and me together 💘",
+"Endless love and laughter 💞",
+"A lifetime of choosing each other 💖"
+]
+}
+];
+
+let current=0;
+
+function loadQuestion(){
+document.getElementById("questionText").innerText=questions[current].question;
+const optionsDiv=document.getElementById("options");
+optionsDiv.innerHTML="";
+
+questions[current].options.forEach(option=>{
+const btn=document.createElement("button");
+btn.innerText=option;
+btn.onclick=()=>{
+document.getElementById("nextBtn").style.display="block";
+};
+optionsDiv.appendChild(btn);
+});
+}
+
+function nextQuestion(){
+current++;
+document.getElementById("nextBtn").style.display="none";
+
+if(current<questions.length){
+loadQuestion();
+}else{
+document.getElementById("questionSection").style.display="none";
+document.getElementById("proposalSection").style.display="block";
+}
+}
+
+function finalYes(){
+document.getElementById("proposalSection").style.display="none";
+document.getElementById("finalMessage").style.display="block";
+}
+
+loadQuestion();
+
+/* Floating hearts */
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart-bg");
+heart.innerHTML=["💖","💘","💞","💕","🌸"][Math.floor(Math.random()*5)];
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*25+15)+"px";
+heart.style.animationDuration=(Math.random()*4+4)+"s";
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),8000);
+}
+
+setInterval(createHeart,400);
+
+</script>
+
+</body>
+</html>
